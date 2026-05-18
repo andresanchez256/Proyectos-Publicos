@@ -1,0 +1,60 @@
+---
+title: "Consultoria Ratones"
+author: "Andres Sanchez"
+date: "2023-11-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library(readxl)
+setwd("C:/Users/ANDRES/Trabajos Universidad/Estadistica/Consultoria e IA/Consultoria")
+data<-read_excel("Resultados_experimento.xlsx")
+```
+
+## Including Plots
+
+```{r, echo=FALSE}
+data[1:5]<- lapply(data[1:5] , as.factor)
+str(data)
+names(data)
+```
+
+
+```{r pressure, echo=FALSE}
+library(FactoClass)
+library(FactoMineR)
+library(factoextra)
+library(cluster)
+```
+
+
+```{r pressure, echo=FALSE}
+Y <-data[,6:9]
+acp <- PCA(Y, graph = T)
+```
+
+
+```{r pressure, echo=FALSE}
+fviz_pca_ind(acp, col.ind = data$Tratamiento, palette = 1:6, repel = F)
+```
+
+```{r pressure, echo=FALSE}
+fviz_pca_ind(acp, col.ind = data$Bolque, palette = 1:6, repel = F)
+```
+
+```{r pressure, echo=FALSE}
+summary(acp)
+xtable(acp)
+```
+
+
